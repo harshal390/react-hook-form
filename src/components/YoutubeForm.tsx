@@ -10,7 +10,8 @@ type formValues = {
     social: {
         x: string,
         facebook: string
-    }
+    },
+    phoneNumbers: string[]
 }
 const YoutubeForm = () => {
 
@@ -26,7 +27,8 @@ const YoutubeForm = () => {
                     social: {
                         x: "",
                         facebook: ""
-                    }
+                    },
+                    phoneNumbers: ["", ""]
                 }
             }
 
@@ -47,6 +49,8 @@ const YoutubeForm = () => {
                 <Input labelValue="channel" type="text" id="channel" name="channel" register={register} errors={errors} />
                 <Input labelValue="x" type="text" id="x" name="social.x" register={register} />
                 <Input labelValue="facebook" type="text" id="facebook" name="social.facebook" register={register} />
+                <Input labelValue="primary-phone" type="text" id="primary-phone" name="phoneNumbers.0" register={register} />
+                <Input labelValue="secondary-phone" type="text" id="secondary-phone" name="phoneNumbers.1" register={register} />
                 <button className="px-10 py-2 border rounded-lg text-center w-fit">Submit</button>
             </form>
             <DevTool control={control} /> {/* set up the dev tool */}
