@@ -7,6 +7,14 @@ const Input = ({ labelValue, type, name, id, register, errors }: any) => {
             pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                 message: "invalid email address"
+            },
+            validate: {
+                notAdmin: (fieldValue: string) => {
+                    return fieldValue !== "admin@gmail.com" || "don't use admin email address."
+                },
+                notBlackListed: (fieldValue: string) => {
+                    return fieldValue !== "black@gmail.com" || "email should not black listed."
+                },
             }
         },
         channel: {
