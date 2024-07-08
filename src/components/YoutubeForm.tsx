@@ -44,7 +44,7 @@ const YoutubeForm = () => {
         }
     );
     const { register, control, handleSubmit, formState, watch, getValues, setValue } = form;
-    const { errors } = formState;
+    const { errors, isDirty, isValid } = formState;
 
     const { fields, append, remove } = useFieldArray({
         name: "nickNames",
@@ -66,7 +66,7 @@ const YoutubeForm = () => {
         })
     }
     renderCount++;
-
+    // console.log(isDirty, isValid);
     // useEffect(() => {
     //     const subscription = watch(value => {
     //         console.log(value);
@@ -76,6 +76,7 @@ const YoutubeForm = () => {
     return (
         <div className="flex flex-col gap-5">
             <div className="text-4xl font-semibold">Youtube Form {renderCount / 2} </div>
+            <h1>is Dirty {isDirty} & is Valid {isValid}</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 items-center" noValidate>
                 <Input labelValue="username" type="text" id="username" name="username" register={register} errors={errors} />
                 <Input labelValue="email" type="text" id="email" name="email" register={register} errors={errors} />
@@ -97,7 +98,7 @@ const YoutubeForm = () => {
                     <button onClick={() => { append({ name: "" }) }} type="button" className="px-10 py-2 border rounded-lg text-center w-fit">Add</button>
                 </div>
                 <div className="flex items-center gap-5 w-full justify-around">
-                    <button className="px-10 py-2 border rounded-lg text-center w-fit order-last">Submit</button>
+                    <button className="px-10 py-2 border rounded-lg text-center w-fit order-last" disabled={!isDirty || !isValid}>Submit</button>
                     <button onClick={() => handleGetValues()} className="order-1 px-10 py-2 border rounded-lg text-center w-fit" type="button">Get Values</button>
                     <button onClick={() => handleSetValues()} className="order-2 px-10 py-2 border rounded-lg text-center w-fit" type="button">Set Field Values</button>
                 </div>
