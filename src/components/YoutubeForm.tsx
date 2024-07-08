@@ -1,6 +1,7 @@
 import { useFieldArray, useForm } from "react-hook-form";
 import Input from "./forms/Input";
 import { DevTool } from "@hookform/devtools";
+import { useEffect } from "react";
 let renderCount = 0;
 
 type formValues = {
@@ -15,8 +16,8 @@ type formValues = {
     nickNames: [{
         name: string
     }],
-    age:number,
-    dob:Date,
+    age: number,
+    dob: Date,
 }
 const YoutubeForm = () => {
 
@@ -35,14 +36,14 @@ const YoutubeForm = () => {
                     },
                     phoneNumbers: ["", ""],
                     nickNames: [{ name: "" }],
-                    age:0,
-                    dob:new Date()
+                    age: 0,
+                    dob: new Date()
                 }
             }
 
         }
     );
-    const { register, control, handleSubmit, formState } = form;
+    const { register, control, handleSubmit, formState, watch, getValues } = form;
     const { errors } = formState;
 
     const { fields, append, remove } = useFieldArray({
@@ -53,6 +54,13 @@ const YoutubeForm = () => {
         console.log("form submitted", data);
     }
     renderCount++;
+
+    useEffect(() => {
+        const subscription = watch(value => {
+            console.log(value);
+        });
+        return () => subscription.unsubscribe();
+    }, [watch])
     return (
         <div className="flex flex-col gap-5">
             <div className="text-4xl font-semibold">Youtube Form {renderCount / 2} </div>
