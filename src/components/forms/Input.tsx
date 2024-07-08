@@ -19,11 +19,25 @@ const Input = ({ labelValue, type, name, id, register, errors }: any) => {
         },
         channel: {
             required: "Channel is required",
+        },
+        age: {
+            valueAsNumber: true,
+            required: {
+                value: true,
+                message: "Age is required",
+            }
+        },
+        dob: {
+            valueAsDate: true,
+            required: {
+                value: true,
+                message: "Date is required",
+            }
         }
     }
     return (
         <div className="grid grid-cols-12 gap-x-5 gap-y-2 items-center w-full">
-            <label htmlFor={labelValue} className="capitalize col-span-2 text-start">{labelValue}</label>
+            {labelValue && <label htmlFor={labelValue} className="capitalize col-span-2 text-start">{labelValue}</label>}
             <input type={type} name={name} id={id} {...register(name, validation[name])} className="border-0 outline-none rounded-lg p-2 col-span-10" />
             <div className="col-span-2"></div>
             {errors && <p className="col-span-10 text-sm text-red-600 capitalize text-start">{errors[name]?.message}</p>}

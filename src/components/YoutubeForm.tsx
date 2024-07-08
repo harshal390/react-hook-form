@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import Input from "./forms/Input";
 import { DevTool } from "@hookform/devtools";
 let renderCount = 0;
@@ -11,7 +11,12 @@ type formValues = {
         x: string,
         facebook: string
     },
-    phoneNumbers: string[]
+    phoneNumbers: string[],
+    nickNames: [{
+        name: string
+    }],
+    age:number,
+    dob:Date,
 }
 const YoutubeForm = () => {
 
@@ -28,7 +33,10 @@ const YoutubeForm = () => {
                         x: "",
                         facebook: ""
                     },
-                    phoneNumbers: ["", ""]
+                    phoneNumbers: ["", ""],
+                    nickNames: [{ name: "" }],
+                    age:0,
+                    dob:new Date()
                 }
             }
 
@@ -36,6 +44,11 @@ const YoutubeForm = () => {
     );
     const { register, control, handleSubmit, formState } = form;
     const { errors } = formState;
+
+    const { fields, append, remove } = useFieldArray({
+        name: "nickNames",
+        control
+    })
     const onSubmit = (data: formValues) => {
         console.log("form submitted", data);
     }
@@ -51,6 +64,18 @@ const YoutubeForm = () => {
                 <Input labelValue="facebook" type="text" id="facebook" name="social.facebook" register={register} />
                 <Input labelValue="primary-phone" type="text" id="primary-phone" name="phoneNumbers.0" register={register} />
                 <Input labelValue="secondary-phone" type="text" id="secondary-phone" name="phoneNumbers.1" register={register} />
+                <Input labelValue="age" type="text" id="age" name="age" register={register} />
+                <Input labelValue="dob" type="date" id="dob" name="dob" register={register} />
+                <div className="flex flex-col gap-3 w-full">
+                    {
+                        fields.map((field, i) => {
+                            return <div key={field.id} className="flex items-center gap-5"><Input type="text" name={`nickNames.${i}.name`} register={register} />
+                                {i > 0 && <button onClick={() => { remove(i) }} type="button" className="px-10 py-2 border rounded-lg text-center w-fit">Remove</button>}
+                            </div>
+                        })
+                    }
+                    <button onClick={() => { append({ name: "" }) }} type="button" className="px-10 py-2 border rounded-lg text-center w-fit">Add</button>
+                </div>
                 <button className="px-10 py-2 border rounded-lg text-center w-fit">Submit</button>
             </form>
             <DevTool control={control} /> {/* set up the dev tool */}
