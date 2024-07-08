@@ -43,8 +43,8 @@ const YoutubeForm = () => {
 
         }
     );
-    const { register, control, handleSubmit, formState, watch, getValues, setValue } = form;
-    const { errors, isDirty, isValid } = formState;
+    const { register, control, handleSubmit, formState, watch, getValues, setValue, reset } = form;
+    const { errors, isDirty, isValid, isSubmitting, isSubmitted, isSubmitSuccessful } = formState;
 
     const { fields, append, remove } = useFieldArray({
         name: "nickNames",
@@ -52,6 +52,7 @@ const YoutubeForm = () => {
     })
     const onSubmit = (data: formValues) => {
         console.log("form submitted", data);
+        console.log(isSubmitting, isSubmitted, isSubmitSuccessful);
     }
 
     const handleGetValues = () => {
@@ -65,6 +66,10 @@ const YoutubeForm = () => {
             shouldValidate: true
         })
     }
+
+    const handleResetValues = () => {
+        reset();
+    }
     renderCount++;
     // console.log(isDirty, isValid);
     // useEffect(() => {
@@ -73,6 +78,10 @@ const YoutubeForm = () => {
     //     });
     //     return () => subscription.unsubscribe();
     // }, [watch])
+
+    useEffect(() => {
+        reset();
+    }, [isSubmitSuccessful, reset]);
     return (
         <div className="flex flex-col gap-5">
             <div className="text-4xl font-semibold">Youtube Form {renderCount / 2} </div>
@@ -98,9 +107,10 @@ const YoutubeForm = () => {
                     <button onClick={() => { append({ name: "" }) }} type="button" className="px-10 py-2 border rounded-lg text-center w-fit">Add</button>
                 </div>
                 <div className="flex items-center gap-5 w-full justify-around">
-                    <button className="px-10 py-2 border rounded-lg text-center w-fit order-last" disabled={!isDirty || !isValid}>Submit</button>
+                    <button className="px-10 py-2 border rounded-lg text-center w-fit order-last" disabled={!isDirty || !isValid || isSubmitting}>Submit</button>
                     <button onClick={() => handleGetValues()} className="order-1 px-10 py-2 border rounded-lg text-center w-fit" type="button">Get Values</button>
                     <button onClick={() => handleSetValues()} className="order-2 px-10 py-2 border rounded-lg text-center w-fit" type="button">Set Field Values</button>
+                    <button onClick={() => handleResetValues()} className="order-2 px-10 py-2 border rounded-lg text-center w-fit" type="button">Reset Field Values</button>
                 </div>
 
             </form>
