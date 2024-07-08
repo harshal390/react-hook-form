@@ -43,7 +43,7 @@ const YoutubeForm = () => {
 
         }
     );
-    const { register, control, handleSubmit, formState, watch, getValues } = form;
+    const { register, control, handleSubmit, formState, watch, getValues, setValue } = form;
     const { errors } = formState;
 
     const { fields, append, remove } = useFieldArray({
@@ -56,6 +56,14 @@ const YoutubeForm = () => {
 
     const handleGetValues = () => {
         console.log("Get Values", getValues(["username", "email"]));
+    }
+
+    const handleSetValues = () => {
+        setValue("username", "", {
+            shouldDirty: true,
+            shouldTouch: true,
+            shouldValidate: true
+        })
     }
     renderCount++;
 
@@ -89,8 +97,9 @@ const YoutubeForm = () => {
                     <button onClick={() => { append({ name: "" }) }} type="button" className="px-10 py-2 border rounded-lg text-center w-fit">Add</button>
                 </div>
                 <div className="flex items-center gap-5 w-full justify-around">
-                    <button className="px-10 py-2 border rounded-lg text-center w-fit order-2">Submit</button>
+                    <button className="px-10 py-2 border rounded-lg text-center w-fit order-last">Submit</button>
                     <button onClick={() => handleGetValues()} className="order-1 px-10 py-2 border rounded-lg text-center w-fit" type="button">Get Values</button>
+                    <button onClick={() => handleSetValues()} className="order-2 px-10 py-2 border rounded-lg text-center w-fit" type="button">Set Field Values</button>
                 </div>
 
             </form>
