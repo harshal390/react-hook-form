@@ -53,14 +53,18 @@ const YoutubeForm = () => {
     const onSubmit = (data: formValues) => {
         console.log("form submitted", data);
     }
+
+    const handleGetValues = () => {
+        console.log("Get Values", getValues(["username", "email"]));
+    }
     renderCount++;
 
-    useEffect(() => {
-        const subscription = watch(value => {
-            console.log(value);
-        });
-        return () => subscription.unsubscribe();
-    }, [watch])
+    // useEffect(() => {
+    //     const subscription = watch(value => {
+    //         console.log(value);
+    //     });
+    //     return () => subscription.unsubscribe();
+    // }, [watch])
     return (
         <div className="flex flex-col gap-5">
             <div className="text-4xl font-semibold">Youtube Form {renderCount / 2} </div>
@@ -84,7 +88,11 @@ const YoutubeForm = () => {
                     }
                     <button onClick={() => { append({ name: "" }) }} type="button" className="px-10 py-2 border rounded-lg text-center w-fit">Add</button>
                 </div>
-                <button className="px-10 py-2 border rounded-lg text-center w-fit">Submit</button>
+                <div className="flex items-center gap-5 w-full justify-around">
+                    <button className="px-10 py-2 border rounded-lg text-center w-fit order-2">Submit</button>
+                    <button onClick={() => handleGetValues()} className="order-1 px-10 py-2 border rounded-lg text-center w-fit" type="button">Get Values</button>
+                </div>
+
             </form>
             <DevTool control={control} /> {/* set up the dev tool */}
         </div>
