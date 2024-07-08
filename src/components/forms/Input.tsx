@@ -26,7 +26,7 @@ const Input = ({ labelValue, type, name, id, register, errors }: any) => {
             <label htmlFor={labelValue} className="capitalize col-span-1 text-start">{labelValue}</label>
             <input type={type} name={name} id={id} {...register(name, validation[name])} className="border-0 outline-none rounded-lg p-2 col-span-11" />
             <div className="col-span-1"></div>
-            <p className="col-span-11 text-sm text-red-600 capitalize text-start">{errors[name]?.message}</p>
+            {errors && <p className="col-span-11 text-sm text-red-600 capitalize text-start">{errors[name]?.message}</p>}
         </div>
     )
 }

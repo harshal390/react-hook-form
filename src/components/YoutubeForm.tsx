@@ -6,7 +6,11 @@ let renderCount = 0;
 type formValues = {
     username: string,
     email: string,
-    channel: string
+    channel: string,
+    social: {
+        x: string,
+        facebook: string
+    }
 }
 const YoutubeForm = () => {
 
@@ -18,7 +22,11 @@ const YoutubeForm = () => {
                 return {
                     username: "restartmyself21",
                     email: data.email,
-                    channel: ""
+                    channel: "",
+                    social: {
+                        x: "",
+                        facebook: ""
+                    }
                 }
             }
 
@@ -37,6 +45,8 @@ const YoutubeForm = () => {
                 <Input labelValue="username" type="text" id="username" name="username" register={register} errors={errors} />
                 <Input labelValue="email" type="text" id="email" name="email" register={register} errors={errors} />
                 <Input labelValue="channel" type="text" id="channel" name="channel" register={register} errors={errors} />
+                <Input labelValue="x" type="text" id="x" name="social.x" register={register} />
+                <Input labelValue="facebook" type="text" id="facebook" name="social.facebook" register={register} />
                 <button className="px-10 py-2 border rounded-lg text-center w-fit">Submit</button>
             </form>
             <DevTool control={control} /> {/* set up the dev tool */}
