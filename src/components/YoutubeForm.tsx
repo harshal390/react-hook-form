@@ -19,7 +19,7 @@ const YoutubeForm = () => {
     return (
         <div className="flex flex-col gap-5">
             <div className="text-4xl font-semibold">Youtube Form {renderCount / 2} </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 items-center">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 items-center" noValidate>
                 <Input labelValue="username" type="text" id="username" name="username" register={register} />
                 <Input labelValue="email" type="text" id="email" name="email" register={register} />
                 <Input labelValue="channel" type="text" id="channel" name="channel" register={register} />
